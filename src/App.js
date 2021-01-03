@@ -10,14 +10,14 @@ function App() {
   const backgroundImage = 'https://raw.githubusercontent.com/DoodleScheduling/hiring-challenges/master/frontend-engineer/assets/Body%20BG.png';
   const [value, setValue] = React.useState('');
   const username = 'Me';
-  const bottomRef = React.createRef();
+  const bottomRef = React.useRef(null);
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   const scrollToBottom = () => {
-    bottomRef.scrollIntoView({behavior: 'smooth'})
+    bottomRef.current.scrollIntoView({behavior: 'smooth'})
   };
 
   const [messages, setMessages] = React.useState([]);
@@ -27,7 +27,6 @@ function App() {
         .then((response) => {
           setMessages(response);
           scrollToBottom();
-
         })
         .catch((error) => console.log(error));
   }, []);
@@ -63,7 +62,7 @@ function App() {
                 />
               ))
             }
-            <div style={{ float:"left", clear: "both" }} ref={ bottomRef } />
+            <div ref={ bottomRef } />
           </List>
         </div>
         <div style={ {
